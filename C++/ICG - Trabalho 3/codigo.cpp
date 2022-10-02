@@ -320,6 +320,19 @@ void keybord_test(GLubyte key, GLint x, GLint y)
     // ESC = 27
     if (key == 27)
         glutReshapeWindow(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+    if (key == 100) // D
+    {
+    }
+    if (key == 119) // W
+    {
+    }
+    if (key == 65) // A
+    {
+    }
+    if (key == 83) // S
+    {
+    }
 }
 
 void keybord_test2(GLint key, GLint x, GLint y)
