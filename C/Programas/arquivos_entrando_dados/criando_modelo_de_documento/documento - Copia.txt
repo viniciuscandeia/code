@@ -1,0 +1,20 @@
+{
+   Nome .... : Vinicius 
+   DDD ..... : 83
+   Numero .. : 21
+}
+{
+   Nome .... : Candeia
+   DDD ..... : 13
+   Numero .. : 219999
+}
+{
+   Nome .... : Pereira 
+   DDD ..... : 51
+   Numero .. : 00123
+}
+{
+   Nome .... : Vieira 
+   DDD ..... : 76
+   Numero .. : 8341
+}

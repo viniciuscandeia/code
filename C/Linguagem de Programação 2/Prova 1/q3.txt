@@ -1,0 +1,15 @@
+ALUNO: Vinicius Candeia Pereira Vieira
+MATRÍCULA: 20200009783
+
+(Questão 3 - 2 pontos)  Crie um arquivo de texto explicando o que você entende 
+por consistência de memória e comente se algo deveria ser modificado no código
+da questão anterior com relação a manutenção da consistência de memória.
+
+RESPOSTA:
+
+A consistência de memória é um dos elementos-chave dos sistemas multiprocessadores que compartilham a mesma memória.
+E usa uma hierarquia em cache. A partir dele, todos os núcleos podem acessar a memória de forma consistente e ter uma visão comum 
+da memória que eles usam para executar programas. Portanto, a consistência da memória é um mecanismo de hierarquia
+Hardware que permite que threads de execução se comuniquem corretamente, o que
+software e é executado automaticamente em segundo plano, garantindo que diferentes kernels possam ver a memória
+comum, ou seja, completamente idêntico.

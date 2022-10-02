@@ -1,0 +1,7 @@
+from os import *
+from pathlib import Path
+
+enderecoArquivo = Path('informacoes.txt')
+enderecoCorreto: str = enderecoArquivo
+# enderecoCorreto.replace('\\')
+print(enderecoArquivo)

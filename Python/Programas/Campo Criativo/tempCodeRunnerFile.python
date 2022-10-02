@@ -1,0 +1,14 @@
+from PIL import Image
+import requests
+from io import BytesIO
+from IPython.display import display # to display images
+
+url_image = 'http://imagens.usp.br/wp-content/uploads/13072012frutasfotoMarcosSantos008.jpg'
+
+# lendo a imagem
+response = requests.get(url_image)
+
+img = Image.open(BytesIO(response.content))
+
+# exibindo a imagem
+display(img)
