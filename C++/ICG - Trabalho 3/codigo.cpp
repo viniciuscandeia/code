@@ -38,8 +38,8 @@ struct OBJECT
 
 int matrizTranslacao[3][3] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
 
-int matrizEscalaX[3][3] = {{1, 0, 0}, {0, 0, 0}, {0, 0, 0}};
-int matrizEscalaY[3][3] = {{0, 0, 0}, {0, 1, 0}, {0, 0, 0}};
+int matrizEscalaX[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+int matrizEscalaY[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 
 void incrementoHorizontal(int caso)
 {
@@ -255,28 +255,64 @@ VERTEX escalaPixel(VERTEX vertice, VERTEX centro)
 {
     VERTEX matrizTemp;
 
-    if (matrizEscalaX[0][0] > 0) // Crescimento para direita
+    if (matrizEscalaX[0][0] > 0 && matrizEscalaY[1][1] == 0) // Crescimento para direita
     {
         if (vertice.pos_V[0][0] >= centro.pos_V[0][0])
             matrizTemp = produtoMatrizes(vertice, 1);
     }
 
-    if (matrizEscalaX[0][0] < 0) // Crescimento para esquerda
+    if (matrizEscalaX[0][0] < 0 && matrizEscalaY[1][1] == 0) // Crescimento para esquerda
     {
         if (vertice.pos_V[0][0] <= centro.pos_V[0][0])
             matrizTemp = produtoMatrizes(vertice, 1);
     }
 
-    if (matrizEscalaY[1][1] > 0) // Crescimento para cima
+    if (matrizEscalaX[0][0] == 0 & matrizEscalaY[1][1] > 0) // Crescimento para cima
     {
         if (vertice.pos_V[1][0] >= centro.pos_V[1][0])
             matrizTemp = produtoMatrizes(vertice, 0);
     }
 
-    if (matrizEscalaY[1][1] < 0) // Crescimento para baixo
+    if (matrizEscalaX[0][0] == 0 & matrizEscalaY[1][1] < 0) // Crescimento para baixo
     {
         if (vertice.pos_V[1][0] <= centro.pos_V[1][0])
             matrizTemp = produtoMatrizes(vertice, 0);
+    }
+
+    if (matrizEscalaX[0][0] > 0 && matrizEscalaY[1][1] > 0) // Crescimento para direita / cima
+    {
+        if (vertice.pos_V[0][0] >= centro.pos_V[0][0] && vertice.pos_V[1][0] >= centro.pos_V[1][0])
+        {
+            matrizTemp = produtoMatrizes(vertice, 1);
+            matrizTemp = produtoMatrizes(matrizTemp, 0);
+        }
+    }
+
+    if (matrizEscalaX[0][0] > 0 && matrizEscalaY[1][1] < 0) // Crescimento para direita / baixo
+    {
+        if (vertice.pos_V[0][0] >= centro.pos_V[0][0] && vertice.pos_V[1][0] <= centro.pos_V[1][0])
+        {
+            matrizTemp = produtoMatrizes(vertice, 1);
+            matrizTemp = produtoMatrizes(matrizTemp, 0);
+        }
+    }
+
+    if (matrizEscalaX[0][0] < 0 && matrizEscalaY[1][1] > 0) // Crescimento para esquerda / cima
+    {
+        if (vertice.pos_V[0][0] <= centro.pos_V[0][0] && vertice.pos_V[1][0] >= centro.pos_V[1][0])
+        {
+            matrizTemp = produtoMatrizes(vertice, 1);
+            matrizTemp = produtoMatrizes(matrizTemp, 0);
+        }
+    }
+
+    if (matrizEscalaX[0][0] < 0 && matrizEscalaY[1][1] < 0) // Crescimento para esquerda / baixo
+    {
+        if (vertice.pos_V[0][0] <= centro.pos_V[0][0] && vertice.pos_V[1][0] <= centro.pos_V[1][0])
+        {
+            matrizTemp = produtoMatrizes(vertice, 1);
+            matrizTemp = produtoMatrizes(matrizTemp, 0);
+        }
     }
 
     return matrizTemp;
