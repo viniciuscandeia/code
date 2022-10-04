@@ -28,6 +28,9 @@ struct VERTEX
 };
 
 VERTEX translacaoPixel(VERTEX vertice);
+VERTEX produtoMatrizes(VERTEX vertice, int caso);
+VERTEX produtoMatrizesMeio(VERTEX vertice, int caso);
+VERTEX escalaPixel(VERTEX vertice, VERTEX centro);
 
 // armazena a descrição geométrica de um objeto
 struct OBJECT
@@ -38,16 +41,13 @@ struct OBJECT
 
 int matrizTranslacao[3][3] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
 
-int matrizEscalaX[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
-int matrizEscalaY[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+int matrizEscalaX[3][3] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+int matrizEscalaY[3][3] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
 
 void incrementoHorizontal(int caso)
 {
     int matrizTemp[3][3];
-    int t_matrizAumentoX[3][3] = {{1, 0, 1}, {0, 1, 0}, {0, 0, 1}};
-    int e_matrizAumentoX[3][3] = {{1, 0, 0}, {0, 0, 0}, {1, 0, 0}};
-
-    matrizEscalaX[0][2] = 1;
+    int matrizAumentoX[3][3] = {{1, 0, 1}, {0, 1, 0}, {0, 0, 1}};
 
     int aux = 0;
     for (int linha = 0; linha < 3; linha++)
@@ -58,10 +58,9 @@ void incrementoHorizontal(int caso)
             for (int i = 0; i < 3; i++)
             {
                 if (caso)
-                    aux += matrizTranslacao[linha][i] * t_matrizAumentoX[i][coluna];
-
+                    aux += matrizTranslacao[linha][i] * matrizAumentoX[i][coluna];
                 else
-                    aux += matrizEscalaX[linha][i] * e_matrizAumentoX[i][coluna];
+                    aux += matrizEscalaX[linha][i] * matrizAumentoX[i][coluna];
 
                 matrizTemp[linha][coluna] = aux;
             }
@@ -78,17 +77,12 @@ void incrementoHorizontal(int caso)
                 matrizEscalaX[linha][coluna] = matrizTemp[linha][coluna];
         }
     }
-
-    matrizEscalaX[0][2] = 0;
 }
 
 void decrementoHorizontal(int caso)
 {
     int matrizTemp[3][3];
-    int t_matrizReducaoX[3][3] = {{1, 0, -1}, {0, 1, 0}, {0, 0, 1}};
-    int e_matrizReducaoX[3][3] = {{1, 0, 0}, {0, 0, 0}, {-1, 0, 0}};
-
-    matrizEscalaX[0][2] = 1;
+    int matrizReducaoX[3][3] = {{1, 0, -1}, {0, 1, 0}, {0, 0, 1}};
 
     int aux = 0;
     for (int linha = 0; linha < 3; linha++)
@@ -99,9 +93,9 @@ void decrementoHorizontal(int caso)
             for (int i = 0; i < 3; i++)
             {
                 if (caso)
-                    aux += matrizTranslacao[linha][i] * t_matrizReducaoX[i][coluna];
+                    aux += matrizTranslacao[linha][i] * matrizReducaoX[i][coluna];
                 else
-                    aux += matrizEscalaX[linha][i] * e_matrizReducaoX[i][coluna];
+                    aux += matrizEscalaX[linha][i] * matrizReducaoX[i][coluna];
 
                 matrizTemp[linha][coluna] = aux;
             }
@@ -118,17 +112,12 @@ void decrementoHorizontal(int caso)
                 matrizEscalaX[linha][coluna] = matrizTemp[linha][coluna];
         }
     }
-
-    matrizEscalaX[0][2] = 0;
 }
 
 void incrementoVertical(int caso)
 {
     int matrizTemp[3][3];
-    int t_matrizAumentoY[3][3] = {{1, 0, 0}, {0, 1, 1}, {0, 0, 1}};
-    int e_matrizAumentoY[3][3] = {{0, 1, 0}, {0, 1, 0}, {0, 0, 0}};
-
-    matrizEscalaY[1][0] = 1;
+    int matrizAumentoY[3][3] = {{1, 0, 0}, {0, 1, 1}, {0, 0, 1}};
 
     int aux = 0;
     for (int linha = 0; linha < 3; linha++)
@@ -139,9 +128,9 @@ void incrementoVertical(int caso)
             for (int i = 0; i < 3; i++)
             {
                 if (caso)
-                    aux += matrizTranslacao[linha][i] * t_matrizAumentoY[i][coluna];
+                    aux += matrizTranslacao[linha][i] * matrizAumentoY[i][coluna];
                 else
-                    aux += matrizEscalaY[linha][i] * e_matrizAumentoY[i][coluna];
+                    aux += matrizEscalaY[linha][i] * matrizAumentoY[i][coluna];
                 matrizTemp[linha][coluna] = aux;
             }
         }
@@ -157,17 +146,12 @@ void incrementoVertical(int caso)
                 matrizEscalaY[linha][coluna] = matrizTemp[linha][coluna];
         }
     }
-
-    matrizEscalaY[1][0] = 0;
 }
 
 void decrementoVertical(int caso)
 {
     int matrizTemp[3][3];
-    int t_matrizReducaoY[3][3] = {{1, 0, 0}, {0, 1, -1}, {0, 0, 1}};
-    int e_matrizReducaoY[3][3] = {{0, -1, 0}, {0, 1, 0}, {0, 0, 0}};
-
-    matrizEscalaY[1][0] = 1;
+    int matrizReducaoY[3][3] = {{1, 0, 0}, {0, 1, -1}, {0, 0, 1}};
 
     int aux = 0;
     for (int linha = 0; linha < 3; linha++)
@@ -178,9 +162,9 @@ void decrementoVertical(int caso)
             for (int i = 0; i < 3; i++)
             {
                 if (caso)
-                    aux += matrizTranslacao[linha][i] * t_matrizReducaoY[i][coluna];
+                    aux += matrizTranslacao[linha][i] * matrizReducaoY[i][coluna];
                 else
-                    aux += matrizEscalaY[linha][i] * e_matrizReducaoY[i][coluna];
+                    aux += matrizEscalaY[linha][i] * matrizReducaoY[i][coluna];
                 matrizTemp[linha][coluna] = aux;
             }
         }
@@ -196,8 +180,6 @@ void decrementoVertical(int caso)
                 matrizEscalaY[linha][coluna] = matrizTemp[linha][coluna];
         }
     }
-
-    matrizEscalaY[1][0] = 0;
 }
 
 VERTEX translacaoPixel(VERTEX vertice)
@@ -225,9 +207,6 @@ VERTEX produtoMatrizes(VERTEX vertice, int caso)
 {
     VERTEX matrizTemp;
 
-    matrizEscalaX[1][1] = 1;
-    matrizEscalaY[0][0] = 1;
-
     int aux = 0;
     for (int linha = 0; linha < 3; linha++)
     {
@@ -245,8 +224,40 @@ VERTEX produtoMatrizes(VERTEX vertice, int caso)
         }
     }
 
-    matrizEscalaX[1][1] = 0;
-    matrizEscalaY[0][0] = 0;
+    return matrizTemp;
+}
+
+VERTEX produtoMatrizesMeio(VERTEX vertice, int caso)
+{
+    VERTEX matrizTemp;
+
+    int aux = 0;
+    for (int linha = 0; linha < 3; linha++)
+    {
+        for (int coluna = 0; coluna < 3; coluna++)
+        {
+            aux = 0;
+            for (int i = 0; i < 3; i++)
+            {
+                if (caso)
+                {
+                    if (linha == 0 && i == 2)
+                        aux += vertice.pos_V[i][0] * (matrizEscalaX[linha][i] / 2);
+                    else
+                        aux += vertice.pos_V[i][0] * matrizEscalaX[linha][i];
+                }
+                else
+                {
+                    if (linha == 1 && i == 2)
+                        aux += vertice.pos_V[i][0] * (matrizEscalaY[linha][i] / 2);
+                    else
+                        aux += vertice.pos_V[i][0] * matrizEscalaY[linha][i];
+                }
+            }
+
+            matrizTemp.pos_V[linha][0] = aux;
+        }
+    }
 
     return matrizTemp;
 }
@@ -255,66 +266,46 @@ VERTEX escalaPixel(VERTEX vertice, VERTEX centro)
 {
     VERTEX matrizTemp;
 
-    if (matrizEscalaX[0][0] > 0 && matrizEscalaY[1][1] == 0) // Crescimento para direita
+    // Movendo o pixel para uma posição relativa à origem
+    matrizTemp.pos_V[0][0] = vertice.pos_V[0][0] - centro.pos_V[0][0];
+    matrizTemp.pos_V[1][0] = vertice.pos_V[1][0] - centro.pos_V[1][0];
+
+    // Aplicação da escala
+    if (matrizEscalaX[0][2] > 0)
     {
-        if (vertice.pos_V[0][0] >= centro.pos_V[0][0])
-            matrizTemp = produtoMatrizes(vertice, 1);
+        if (vertice.pos_V[0][0] > centro.pos_V[0][0])
+            matrizTemp = produtoMatrizes(matrizTemp, 1);
+        if (vertice.pos_V[0][0] == centro.pos_V[0][0])
+            matrizTemp = produtoMatrizesMeio(matrizTemp, 1);
     }
 
-    if (matrizEscalaX[0][0] < 0 && matrizEscalaY[1][1] == 0) // Crescimento para esquerda
+    if (matrizEscalaX[0][2] < 0)
     {
-        if (vertice.pos_V[0][0] <= centro.pos_V[0][0])
-            matrizTemp = produtoMatrizes(vertice, 1);
+        if (vertice.pos_V[0][0] < centro.pos_V[0][0])
+            matrizTemp = produtoMatrizes(matrizTemp, 1);
+        if (vertice.pos_V[0][0] == centro.pos_V[0][0])
+            matrizTemp = produtoMatrizesMeio(matrizTemp, 1);
     }
 
-    if (matrizEscalaX[0][0] == 0 & matrizEscalaY[1][1] > 0) // Crescimento para cima
+    if (matrizEscalaY[1][2] > 0)
     {
-        if (vertice.pos_V[1][0] >= centro.pos_V[1][0])
-            matrizTemp = produtoMatrizes(vertice, 0);
-    }
-
-    if (matrizEscalaX[0][0] == 0 & matrizEscalaY[1][1] < 0) // Crescimento para baixo
-    {
-        if (vertice.pos_V[1][0] <= centro.pos_V[1][0])
-            matrizTemp = produtoMatrizes(vertice, 0);
-    }
-
-    if (matrizEscalaX[0][0] > 0 && matrizEscalaY[1][1] > 0) // Crescimento para direita / cima
-    {
-        if (vertice.pos_V[0][0] >= centro.pos_V[0][0] && vertice.pos_V[1][0] >= centro.pos_V[1][0])
-        {
-            matrizTemp = produtoMatrizes(vertice, 1);
+        if (vertice.pos_V[1][0] > centro.pos_V[1][0])
             matrizTemp = produtoMatrizes(matrizTemp, 0);
-        }
+        if (vertice.pos_V[1][0] == centro.pos_V[1][0])
+            matrizTemp = produtoMatrizesMeio(matrizTemp, 0);
     }
 
-    if (matrizEscalaX[0][0] > 0 && matrizEscalaY[1][1] < 0) // Crescimento para direita / baixo
+    if (matrizEscalaY[1][2] < 0)
     {
-        if (vertice.pos_V[0][0] >= centro.pos_V[0][0] && vertice.pos_V[1][0] <= centro.pos_V[1][0])
-        {
-            matrizTemp = produtoMatrizes(vertice, 1);
+        if (vertice.pos_V[1][0] < centro.pos_V[1][0])
             matrizTemp = produtoMatrizes(matrizTemp, 0);
-        }
+        if (vertice.pos_V[1][0] == centro.pos_V[1][0])
+            matrizTemp = produtoMatrizesMeio(matrizTemp, 0);
     }
 
-    if (matrizEscalaX[0][0] < 0 && matrizEscalaY[1][1] > 0) // Crescimento para esquerda / cima
-    {
-        if (vertice.pos_V[0][0] <= centro.pos_V[0][0] && vertice.pos_V[1][0] >= centro.pos_V[1][0])
-        {
-            matrizTemp = produtoMatrizes(vertice, 1);
-            matrizTemp = produtoMatrizes(matrizTemp, 0);
-        }
-    }
-
-    if (matrizEscalaX[0][0] < 0 && matrizEscalaY[1][1] < 0) // Crescimento para esquerda / baixo
-    {
-        if (vertice.pos_V[0][0] <= centro.pos_V[0][0] && vertice.pos_V[1][0] <= centro.pos_V[1][0])
-        {
-            matrizTemp = produtoMatrizes(vertice, 1);
-            matrizTemp = produtoMatrizes(matrizTemp, 0);
-        }
-    }
-
+    // Movendo o pixxel para a posição original
+    matrizTemp.pos_V[0][0] = matrizTemp.pos_V[0][0] + centro.pos_V[0][0];
+    matrizTemp.pos_V[1][0] = matrizTemp.pos_V[1][0] + centro.pos_V[1][0];
     return matrizTemp;
 }
 
@@ -474,6 +465,28 @@ void keybord_test(GLubyte key, GLint x, GLint y)
     if (key == 100 || key == 68) // D
         incrementoHorizontal(0);
     glutPostRedisplay();
+
+    printf("\nESCALA X: \n");
+    for (int linha = 0; linha < 3; linha++)
+    {
+        for (int coluna = 0; coluna < 3; coluna++)
+        {
+            printf("%d ", matrizEscalaX[linha][coluna]);
+            if (coluna == 2)
+                printf("\n");
+        }
+    }
+
+    printf("\nESCALA Y: \n");
+    for (int linha = 0; linha < 3; linha++)
+    {
+        for (int coluna = 0; coluna < 3; coluna++)
+        {
+            printf("%d ", matrizEscalaY[linha][coluna]);
+            if (coluna == 2)
+                printf("\n");
+        }
+    }
 }
 
 void keybord_test2(GLint key, GLint x, GLint y)
@@ -496,8 +509,19 @@ void keybord_test2(GLint key, GLint x, GLint y)
     if (key == 101)
         incrementoVertical(1); // tecla para cima
 
-    printf("\nt_x_inc = %d", matrizTranslacao[0][2]);
-    printf("\nt_y_inc = %d", matrizTranslacao[1][2]);
+    printf("\nTRANSLACAO: \n");
+    for (int linha = 0; linha < 3; linha++)
+    {
+        for (int coluna = 0; coluna < 3; coluna++)
+        {
+            printf("%d ", matrizTranslacao[linha][coluna]);
+            if (coluna == 2)
+                printf("\n");
+        }
+    }
+
+    // printf("\nt_x_inc = %d", matrizTranslacao[0][2]);
+    // printf("\nt_y_inc = %d", matrizTranslacao[1][2]);
     glutPostRedisplay();
 }
 
