@@ -84,35 +84,15 @@ void init()
     object = create_object(); // cria o objeto
 }
 
-// FUNÇÃO QUE REALIZA A TRANSLAÇÃO E ESCALA DO OBJETO
+// FUNÇÃO QUE REALIZA A TRANSLAÇÃO, ESCALA E ROTAÇÃO DO OBJETO
 void aplicaTransformacoes(VERTEX vertex, VERTEX centro, int *matrizFinal)
 {
 
-    double valorK = -sx * centro.x + centro.x + tx;
-    double valorJ = -sy * centro.y + centro.y + ty;
-
-    double valorM = centro.x - centro.x * c + centro.y * s;
-    double valorN = centro.y - centro.y * c - centro.x * s;
-
     int matrizObjeto[3] = {vertex.x, vertex.y, 1};
-    // int matrizObjeto[3] = {vertex.x - centro.x, vertex.y - centro.y, 1};
-    double mT[3][3] = {sx, 0, valorK,
-                       0, sy, valorJ,
-                       0, 0, 1};
-
-    double mR[3][3] = {c, -s, 0,
-                       s, c, 0,
-                       0, 0, 1};
-
-    double matrizResultante[3][3] = {mT[0][0] * mR[0][0], mT[0][0] * mR[0][1], mT[0][2],
-                                     mT[1][1] * mR[1][0], mT[1][1] * mR[1][1], mT[1][2],
-                                     0, 0, 1};
 
     double matriz[3][3] = {sx * c, -sx * s, sx * (centro.x - centro.x * c + centro.y * s) - sx * centro.x + centro.x + tx,
                            sy * s, sy * c, sy * (centro.y - centro.y * c - centro.x * s) - sy * centro.y + centro.y + ty,
                            0, 0, 1};
-
-    printf("\n");
 
     for (int j = 0; j < 3; j++)
     {
@@ -121,9 +101,6 @@ void aplicaTransformacoes(VERTEX vertex, VERTEX centro, int *matrizFinal)
             matrizFinal[j] += matrizObjeto[k] * matriz[j][k];
         }
     }
-
-    // matrizFinal[0] += centro.x;
-    // matrizFinal[1] += centro.y;
 }
 
 void moveOrigem(OBJECT *obj)
@@ -174,13 +151,11 @@ void mouse_test(GLint button, GLint action, GLint x, GLint y)
         angulo += velocidade;
         s = sin((angulo * M_PI) / 180);
         c = cos((angulo * M_PI) / 180);
-        printf("\nA: %d || S: %f || C: %f || V: %d \n", angulo, s, c, velocidade);
         break;
     case GLUT_RIGHT_BUTTON:
         angulo += -velocidade;
         s = sin((angulo * M_PI) / 180);
         c = cos((angulo * M_PI) / 180);
-        printf("\nA: %d || S: %f || C: %f || V: %d \n", angulo, s, c, velocidade);
         break;
     default:
         break;
@@ -227,12 +202,10 @@ void keybord_test(GLubyte key, GLint x, GLint y)
     if (key == 61)
     {
         velocidade += 1;
-        printf("\nA: %d || S: %f || C: %f || V: %d \n", angulo, s, c, velocidade);
     }
     if (key == 45)
     {
         velocidade -= 1;
-        printf("\nA: %d || S: %f || C: %f || V: %d \n", angulo, s, c, velocidade);
     }
     if (key == 32)
     {
