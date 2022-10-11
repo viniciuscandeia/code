@@ -171,16 +171,13 @@ void mouse_test(GLint button, GLint action, GLint x, GLint y)
     switch (button)
     {
     case GLUT_LEFT_BUTTON:
-        if (action == GLUT_DOWN)
-            angulo += velocidade;
+        angulo += velocidade;
         s = sin((angulo * M_PI) / 180);
         c = cos((angulo * M_PI) / 180);
         printf("\nA: %d || S: %f || C: %f || V: %d \n", angulo, s, c, velocidade);
-
         break;
     case GLUT_RIGHT_BUTTON:
-        if (action == GLUT_DOWN)
-            angulo += velocidade;
+        angulo += -velocidade;
         s = sin((angulo * M_PI) / 180);
         c = cos((angulo * M_PI) / 180);
         printf("\nA: %d || S: %f || C: %f || V: %d \n", angulo, s, c, velocidade);
