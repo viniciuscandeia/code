@@ -111,6 +111,20 @@ void moveOrigem(OBJECT *obj)
     ty = -centro.y;
 }
 
+// FUNÇÃO PARA RESETAR OS VALORES E A POSIÇÃO
+void reset()
+{
+    tx = 0;
+    ty = 0;
+    sx = 1;
+    sy = 1;
+    angulo = 0;
+    velocidade = 1;
+
+    s = sin((angulo * M_PI) / 180);
+    c = cos((angulo * M_PI) / 180);
+}
+
 void draw_object(OBJECT *obj)
 {
     VERTEX centro = calculate_centroid(obj);
@@ -203,6 +217,10 @@ void keybord_test(GLubyte key, GLint x, GLint y)
         velocidade -= 1;
     }
     if (key == 32)
+    {
+        reset();
+    }
+    if (key == 13)
     {
         moveOrigem(object);
     }
