@@ -157,14 +157,22 @@ void mouse_test(GLint button, GLint action, GLint x, GLint y)
     switch (button)
     {
     case GLUT_LEFT_BUTTON:
-        angulo += velocidade;
-        s = sin((angulo * M_PI) / 180);
-        c = cos((angulo * M_PI) / 180);
+        if (action == GLUT_DOWN)
+        {
+            angulo += velocidade;
+            s = sin((angulo * M_PI) / 180);
+            c = cos((angulo * M_PI) / 180);
+            printf("MOUSE:  LEFT || ANGLE: %3d \n", angulo);
+        }
         break;
     case GLUT_RIGHT_BUTTON:
-        angulo += -velocidade;
-        s = sin((angulo * M_PI) / 180);
-        c = cos((angulo * M_PI) / 180);
+        if (action == GLUT_DOWN)
+        {
+            angulo += -velocidade;
+            s = sin((angulo * M_PI) / 180);
+            c = cos((angulo * M_PI) / 180);
+            printf("MOUSE: RIGHT || ANGLE: %3d \n", angulo);
+        }
         break;
     default:
         break;
@@ -177,52 +185,60 @@ void keybord_test(GLubyte key, GLint x, GLint y)
 {
     GLint m = glutGetModifiers();
 
-    if (m == GLUT_ACTIVE_SHIFT)
-        std::cout << "Shift ou Caps ";
-    else if (m == GLUT_ACTIVE_CTRL)
-        std::cout << "Control ";
-    else if (m == GLUT_ACTIVE_ALT)
-        std::cout << "Alt ";
+    // if (m == GLUT_ACTIVE_SHIFT)
+    //     std::cout << "Shift ou Caps ";
+    // else if (m == GLUT_ACTIVE_CTRL)
+    //     std::cout << "Control ";
+    // else if (m == GLUT_ACTIVE_ALT)
+    //     std::cout << "Alt ";
 
     // VERIFICAR TABELA ASCII QUANDO O CTRL ESTIVER PRECIONADO COM ALGUMA
     // LETRA
     if (m == GLUT_ACTIVE_CTRL && (GLint)key == 4)
         exit(EXIT_SUCCESS);
 
-    std::cout << "Tecla: " << (GLint)key << " (x:" << x << ", y:" << y << ")\n";
+    // std::cout << "Tecla: " << (GLint)key << " (x:" << x << ", y:" << y << ")\n";
 
     // Escala
     if (key == 119)
     {
         sy += 0.1; // tecla W
+        printf("SCALE:   Y++ ||    SY: %5.1f \n", sy);
     }
     if (key == 115)
     {
         sy -= 0.1; // tecla S
+        printf("SCALE:   Y-- ||    SY: %5.1f \n", sy);
     }
     if (key == 97)
     {
         sx -= 0.1; // tecla A
+        printf("SCALE:   X-- ||    SX: %5.1f \n", sx);
     }
     if (key == 100)
     {
         sx += 0.1; // tecla D
+        printf("SCALE:   X++ ||    SX: %5.1f \n", sx);
     }
     if (key == 61)
     {
         velocidade += 1;
+        printf("ANGLE:   %3d || SPEED: %3d \n", angulo, velocidade);
     }
     if (key == 45)
     {
         velocidade -= 1;
+        printf("ANGLE:   %3d || SPEED: %3d \n", angulo, velocidade);
     }
     if (key == 32)
     {
         reset();
+        printf("VALORES RESETADOS! \n");
     }
     if (key == 13)
     {
         moveOrigem(object);
+        printf("MOVIDO PARA ORIGEM! \n");
     }
 
     glutPostRedisplay();
@@ -244,18 +260,22 @@ void keybord_test2(GLint key, GLint x, GLint y)
     if (key == 100)
     {
         tx -= 1; // tecla para esquerda
+        printf("MOVE:   LEFT ||    TX: %5.1f \n", tx);
     }
     if (key == 102)
     {
         tx += 1; // tecla para direita
+        printf("MOVE:  RIGHT ||    TX: %5.1f \n", tx);
     }
     if (key == 103)
     {
         ty -= 1; // tecla para baixo
+        printf("MOVE:   DOWN ||    TY: %5.1f \n", ty);
     }
     if (key == 101)
     {
         ty += 1; // tecla para cima
+        printf("MOVE:     UP ||    TY: %5.1f \n", ty);
     }
     glutPostRedisplay();
 }
