@@ -61,11 +61,10 @@ OBJECT *create_object()
 
 VERTEX calculate_centroid(OBJECT *obj)
 {
-    int i;
     VERTEX cent;
     cent.x = 0;
     cent.y = 0;
-    for (i = 0; i < obj->nrvertices; i++)
+    for (int i = 0; i < obj->nrvertices; i++)
     {
         cent.x += obj->vertices[i].x;
         cent.y += obj->vertices[i].y;
@@ -103,24 +102,20 @@ void aplicaTransformacoes(VERTEX vertex, VERTEX centro, int *matrizFinal)
     }
 }
 
+// FUNÇÃO QUE MOVE O OBJETO PARA A ORIGEM DO PLANO CARTESIANO
 void moveOrigem(OBJECT *obj)
 {
     VERTEX centro = calculate_centroid(obj);
-    int i, j, k;
 
-    for (i = 0; i < obj->nrvertices; i++)
-    {
-        obj->vertices[i].x -= centro.x;
-        obj->vertices[i].y -= centro.y;
-    }
+    tx = -centro.x;
+    ty = -centro.y;
 }
 
 void draw_object(OBJECT *obj)
 {
     VERTEX centro = calculate_centroid(obj);
-    int i, j, k;
     glBegin(GL_POLYGON); // Poligono preenchido
-    for (i = 0; i < obj->nrvertices; i++)
+    for (int i = 0; i < obj->nrvertices; i++)
     {
         int matrizFinal[3] = {0, 0, 0};
         aplicaTransformacoes(obj->vertices[i], centro, matrizFinal);
@@ -230,19 +225,19 @@ void keybord_test2(GLint key, GLint x, GLint y)
     // Movimento
     if (key == 100)
     {
-        tx--; // tecla para esquerda
+        tx -= 1; // tecla para esquerda
     }
     if (key == 102)
     {
-        tx++; // tecla para direita
+        tx += 1; // tecla para direita
     }
     if (key == 103)
     {
-        ty--; // tecla para baixo
+        ty -= 1; // tecla para baixo
     }
     if (key == 101)
     {
-        ty++; // tecla para cima
+        ty += 1; // tecla para cima
     }
     glutPostRedisplay();
 }
